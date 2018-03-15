@@ -8,21 +8,4 @@ function pop = secondFeasability(pop, lowerBounds, upperBounds)
         popn(popn>upperBounds(2)) = 2*upperBounds(2)-popn(popn>upperBounds(2));
 
         pop = [pop1 popn];
-%         
-%         a =zeros(size(pop));
-%         
-%         for i = 1:size(pop,1)
-%             for j = 1:size(pop,2)
-%                 if pop(i,j)<lowerBounds
-%                     a(i,j) = 2*lowerBounds-pop(i,j);
-%                 elseif pop(i,j)>upperBounds
-%                     a(i,j) = 2*upperBounds-pop(i,j);
-%                 else 
-%                     a(i,j)=pop(i,j);
-%                 end
-%             end
-%         end
-% %                     
-%         disp(a)
-%         disp(pop)
 end
