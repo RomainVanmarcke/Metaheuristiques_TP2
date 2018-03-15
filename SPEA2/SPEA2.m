@@ -13,11 +13,9 @@ function [paretoFrontAllG, scores ] = SPEA2(problem)
     M = N; % mating pool size
     
     k = round(sqrt(N+Nb));
-    
-    %crossoverFunction= @localArithmeticCrossover;
+
     crossoverFunction= @simulatedBinaryCrossover;
     
-    %mutationFunction = @normalMutation;
     mutationFunction = @polynomialMutationSPEA2;
     
 %     feasabilityFunction = @firstFeasability;
@@ -37,10 +35,7 @@ function [paretoFrontAllG, scores ] = SPEA2(problem)
     pop(:,1) = unifrnd(lowerBounds(1),upperBounds(1),N,1);
 
     archive = [];
-            
-   %integrer minimisation
-                
-    %gerer limites 
+
     scores(1).array = []; 
     paretoFrontAllG(1).array = [];
     while t<T+1
@@ -86,10 +81,7 @@ function [paretoFrontAllG, scores ] = SPEA2(problem)
         Dmatrix = 1./(sigmaKmatrix'+2);
         fitnessMatrix = Rmatrix + Dmatrix;
         
-        nNonDominated = sum(Rmatrix==0);
-        %disp(nNonDominated)    
-        %nonDominatedDistances = distanceMatrix(:,Rmatrix==0);               
-        
+        nNonDominated = sum(Rmatrix==0);    
         
         if nNonDominated<=Nb
             [populationFitness, sortedIndices] = sort(fitnessMatrix);
@@ -97,14 +89,11 @@ function [paretoFrontAllG, scores ] = SPEA2(problem)
             archiveFitness = populationFitness(1:Nb);
             paretoFront = all(Rmatrix==0,:);
                        
-        else
-%             distanceMatrix = distanceMatrix(Rmatrix==0,Rmatrix==0);            
+        else   
             distanceMatrix = distanceMatrix(:,Rmatrix==0);            
             archive = all(Rmatrix==0,:);
             archiveFitness = fitnessMatrix(Rmatrix==0);
-            %archiveValues = problemValue(Rmatrix==0,:);
-            
-            %j=1;
+
             j=2;
             while size(archive,1)>Nb
                 while min(distanceMatrix(j,:)) == max(distanceMatrix(j,:)) && j<size(distanceMatrix,1)
@@ -121,30 +110,7 @@ function [paretoFrontAllG, scores ] = SPEA2(problem)
             end
             paretoFront = archive;
             
-        end
-        
-                
-        %calcul du delta
-%         nonDominatedValues = problemValue(Rmatrix==0,:);
-%         [~,indices] = sort(nonDominatedValues(:,1));
-%         if size(distanceMatrix,2)<size(nonDominatedDistances,2)
-%             nonDominatedMatrix=distanceMatrix;
-%             [~,nonDominatedIndices] = sort(archiveValues(:,1));
-%         %c'est quoi les solutions limites?
-%         %genre (1,0) et (0,1) ou celles qu'on a trouvé nous.
-%         df = nonDominatedDistances(indices(1),nonDominatedIndices(1));
-%         dl = nonDominatedDistances(indices(end),nonDominatedIndices(end);
-%         db = 0;
-%           nd = size(nonDominatedIndices,1)-1
-     %      sortedDistances = zeros(nd,1);
- %         for i=1:nd
- %            sortedDistances(i)=nonDominatedDistances(nonDominatedIndices(i),nonDominatedIndices(i+1));
-%             db = sortedDistances(i);
-%         end
-%         db = db/nd
-%         delta = (df+dl+sum(abs(sortedDistances-db)))/(df+dl+nd*db)
-
-        
+        end   
         
         %Crossover
         children = zeros(M,L);
@@ -159,17 +125,11 @@ function [paretoFrontAllG, scores ] = SPEA2(problem)
             children(2*i,:) = kids(2,:);
              
         end
-%         disp(pop)
-%         disp(children);
         
         %Mutation
         pop = mutationFunction(children,pm, lowerBounds, upperBounds, n);
         
         pop = feasabilityFunction(pop, lowerBounds, upperBounds);
-        
-%         if(t==10)
-%             break
-%         end
 
         if t > 0 
             paretoFrontAllG(t).array = problemFunction(paretoFront);
