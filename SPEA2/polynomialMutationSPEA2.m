@@ -1,7 +1,6 @@
 function children = polynomialMutationSPEA2(children, pm, lowerBounds, upperBounds, n)
     r = rand(size(children));
     u = rand(size(children));
-    %delta=max(upperBounds-children, children-lowerBounds);
     delta=upperBounds-lowerBounds;
     delta=delta.*ones(size(children,1),1);
     e=zeros(size(children));
