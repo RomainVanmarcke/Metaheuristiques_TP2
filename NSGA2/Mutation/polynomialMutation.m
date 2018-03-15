@@ -7,7 +7,8 @@ function child = polynomialMutation(child, pm, lower, upper, ~, ~, ~, n, ~)
             else
                 e = 1-(2*(1-u))^(1/(n+1));
             end
-            delta = min(upper(i)-child(i), child(i)-lower(i));
+%             delta = min(upper(i)-child(i), child(i)-lower(i));
+            delta = (upper(i)-lower(i));
             child(i) = child(i)+delta*e;
         end
 	end
