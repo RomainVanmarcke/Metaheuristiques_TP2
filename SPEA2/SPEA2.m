@@ -104,7 +104,6 @@ function [paretoFrontAllG, scores ] = SPEA2(problem)
                 
                 archive(i,:)=[];
                 archiveFitness(i)=[];
-                %archiveValues(i,:)=[];
                 distanceMatrix(:,i) = [];
                 
             end
