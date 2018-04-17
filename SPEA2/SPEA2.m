@@ -16,7 +16,8 @@ function [paretoFrontAllG, scores ] = SPEA2(problem)
 
     crossoverFunction= @simulatedBinaryCrossover;
     
-    mutationFunction = @polynomialMutationSPEA2;
+    %mutationFunction = @polynomialMutationSPEA2;
+    mutationFunction = @boundaryMutationSPEA2;
     
 %     feasabilityFunction = @firstFeasability;
     feasabilityFunction = @secondFeasability;

@@ -21,7 +21,7 @@ function [paretoFront, scores ] = NSGA2(problem)
     alpha = 0.5; %control the scope of the expansion
     
     %MUTATION
-    mutationFunction = @polynomialMutation; %need n
+    mutationFunction = @boundaryMutation; %need n
     b = 1; %control the speed of the annealing
     sigma = 1; %standard deviation vector
     n = 20; %control parameter

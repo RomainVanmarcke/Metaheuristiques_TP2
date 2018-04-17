@@ -4,7 +4,7 @@ function main()
 
     %PROBLEM
     problem = [];
-    problem.fitnessFunction = @zdt4;
+    problem.fitnessFunction = @zdt1;
     problem = setProblemParameters(problem, N, Gmax);
     
     metricsSPEA2 = [];
